@@ -1,18 +1,12 @@
 var fs = require('fs');
 let inputFile = 'input.txt';
-let input;
-let index = 0;
+let input = fs.readFileSync(inputFile, 'utf8');
 let result = 0;
 
-input = fs.readFileSync(inputFile, 'utf8');
-
-// var testInput1 = '1122';
-// var testInput2 = '1111';
-// var testInput3 = '1234';
-// var testInput4 = '91212129';
-
 result = getCaptchaResult(input);
+
 console.log(result);
+return result;
 
 function getPairSum(input, i) {
     if (i === (input.length - 1)) {
