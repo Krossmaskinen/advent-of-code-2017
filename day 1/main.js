@@ -8,7 +8,7 @@ result1 = getCaptchaResult(input);
 result2 = getCaptchaResultPart2(input);
 
 console.log(`part1: ${result1}`);
-console.log(`part1: ${result2}`);
+console.log(`part2: ${result2}`);
 
 return result2;
 
