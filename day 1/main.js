@@ -1,12 +1,16 @@
 var fs = require('fs');
-let inputFile = 'input.txt';
+let inputFile = './input.txt';
 let input = fs.readFileSync(inputFile, 'utf8');
-let result = 0;
+let result1;
+let result2;
 
-result = getCaptchaResult(input);
+result1 = getCaptchaResult(input);
+result2 = getCaptchaResultPart2(input);
 
-console.log(result);
-return result;
+console.log(`part1: ${result1}`);
+console.log(`part1: ${result2}`);
+
+return result2;
 
 function getPairSum(input, i) {
     if (i === (input.length - 1)) {
@@ -17,7 +21,7 @@ function getPairSum(input, i) {
         return 0;
     }
 
-    if (input[i] === input[i+1]) {
+    if (input[i] === input[i + 1]) {
         return input[i];
     }
 
@@ -32,4 +36,29 @@ function getCaptchaResult(input) {
     }
 
     return sum;
+}
+
+function getCaptchaResultPart2(input) {
+    let sum = 0;
+
+    for (let i = 0; i < input.length; ++i) {
+        sum += Number(getPairSumPart2(input, i));
+    }
+
+    return sum;
+}
+
+function getPairSumPart2(input, i) {
+    let offset = parseInt(input.length / 2);
+    let i2 = i + offset;
+
+    if (i2 >= input.length) {
+        i2 = i2 - (input.length);
+    }
+
+    if (input[i] === input[i2]) {
+        return input[i];
+    }
+
+    return 0;
 }
