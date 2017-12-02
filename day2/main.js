@@ -1,21 +1,31 @@
 var fs = require('fs');
 let inputFile = './input.txt';
 let input = fs.readFileSync(inputFile, 'utf8');
-let checksum;
+let checksum1;
+let checksum2;
 
+// input = '3 8 6 5 ';
 input = formatInput(input);
-checksum = getChecksum(input);
+checksum1 = getChecksum(input);
 
-console.log(`checksum: ${checksum}`);
+checksum2 = getChecksumPart2(input);
 
-return checksum;
+console.log(`checksum1: ${checksum1}`);
+console.log(`checksum2: ${checksum2}`);
+
+return checksum1;
 
 function formatInput(input) {
     let rows = input.split('\n');
 
     return rows.map(row => {
         row = row.split(/\s+/);
-        row.pop();
+
+        if (!row[row.length - 1]) {
+            row.pop();
+        }
+
+        row = row.map(col => Number(col));
 
         return row;
     });
@@ -36,10 +46,40 @@ function getRowDiff(row) {
 
 function getChecksum(rows) {
     return rows.reduce((sum, row) => {
-        let diff = getRowDiff(row);
+        return sum += getRowDiff(row);
+    }, 0);
+}
 
-        sum += getRowDiff(row);
+function getRowResultPart2(row) {
+    let result;
 
-        return sum;
+    row.forEach((col, index) => {
+        if (!result) {
+            row.forEach((col2, index2) => {
+                let divisionResult;
+
+                if (!result) {
+                    if (index !== index2) {
+                        if (col > col2) {
+                            divisionResult = col / col2;
+                        } else {
+                            divisionResult = col2 / col;
+                        }
+
+                        if (Number.isInteger(divisionResult)) {
+                            result = divisionResult;
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+    return result;
+}
+
+function getChecksumPart2(rows) {
+    return rows.reduce((sum, row) => {
+        return sum += getRowResultPart2(row);
     }, 0);
 }
