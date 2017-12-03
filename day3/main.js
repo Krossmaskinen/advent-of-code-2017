@@ -136,64 +136,64 @@ function getManhattanDistance(point1, point2) {
 }
 
 // part 2
-// var running = true;
-// var i = 1;
-// currentWidth = 1;
-// currentHeight = 1;
-// x = 0;
-// y = 0;
-// grid = [[]];
+var running = true;
+var i = 1;
+currentWidth = 1;
+currentHeight = 1;
+x = 0;
+y = 0;
+grid = [[]];
 
-// xDir = 1;
-// yDir = -1;
-// xMoving = true;
+xDir = 1;
+yDir = -1;
+xMoving = true;
 
-// centerX = 0;
-// centerY = 0;
+centerX = 0;
+centerY = 0;
 
-// while (running) {
-//     if (!xMoving) {
-//         populateRows(i);
-//     } else if (xMoving) {
-//         populateCols(i);
-//     }
+while (running) {
+    if (!xMoving) {
+        populateRows(i);
+    } else if (xMoving) {
+        populateCols(i);
+    }
 
-//     if (i > target) {
-//         break;
-//     }
+    if (i > target) {
+        break;
+    }
 
-//     i = getUpdatedValue(i);
-// }
+    i = getUpdatedValue(i);
+}
 
-// console.log(`result: ${i}`);
+console.log(`result: ${i}`);
 
-// function getUpdatedValue(i) {
-//     let col = (x < 0) ? 0 : x;
-//     let row = (y < 0) ? 0 : y;
+function getUpdatedValue(i) {
+    let col = (x < 0) ? 0 : x;
+    let row = (y < 0) ? 0 : y;
 
-//     let top = row - 1;
-//     let bottom = row + 1;
-//     let right = col + 1;
-//     let left = col - 1;
+    let top = row - 1;
+    let bottom = row + 1;
+    let right = col + 1;
+    let left = col - 1;
 
-//     let hasTop = (!!grid[top]);
-//     let hasBottom = (!!grid[bottom]);
+    let hasTop = (!!grid[top]);
+    let hasBottom = (!!grid[bottom]);
 
-//     let sum = 0;
+    let sum = 0;
 
-//     if (hasTop) {
-//         sum += grid[top][left] || 0;
-//         sum += grid[top][col] || 0;
-//         sum += grid[top][right] || 0;
-//     }
-//     if (hasBottom) {
-//         sum += grid[bottom][right] || 0;
-//         sum += grid[bottom][col] || 0;
-//         sum += grid[bottom][left] || 0;
-//     }
+    if (hasTop) {
+        sum += grid[top][left] || 0;
+        sum += grid[top][col] || 0;
+        sum += grid[top][right] || 0;
+    }
+    if (hasBottom) {
+        sum += grid[bottom][right] || 0;
+        sum += grid[bottom][col] || 0;
+        sum += grid[bottom][left] || 0;
+    }
 
-//     sum += grid[row][left] || 0;
-//     sum += grid[row][right] || 0;
+    sum += grid[row][left] || 0;
+    sum += grid[row][right] || 0;
 
-//     return sum;
-// }
+    return sum;
+}
