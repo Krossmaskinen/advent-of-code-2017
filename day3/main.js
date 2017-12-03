@@ -17,6 +17,9 @@ var targetY;
 
 var manhattanDist = 0;
 
+var addedNewRow = false;
+var addedNewCol = false;
+
 // part 1
 for (let i = 1; i <= target; ++i) {
     if (!xMoving) {
@@ -30,39 +33,42 @@ manhattanDist = getManhattanDistance([centerX, centerY], [targetX, targetY]);
 
 console.log(`center: ${centerX}, ${centerY}`);
 console.log(`target: ${targetX}, ${targetY}`);
-
 console.log(`dist: ${manhattanDist}`); // 371
 
 function populateRows(i) {
-    let newRow = checkAndUpdateRows();
-
     grid[y][x] = i;
     checkAndSaveTarget(i);
 
-    if (newRow) {
+    if (addedNewRow) {
+        addedNewRow = false;
         currentHeight++;
         yDir *= -1;
         xMoving = true;
         x += xDir;
+        addedNewCol = checkAndUpdateCols();
     } else {
         y += yDir;
     }
+
+    addedNewRow = checkAndUpdateRows();
 }
 
 function populateCols(i) {
-    let newCol = checkAndUpdateCols();
-
     grid[y][x] = i;
     checkAndSaveTarget(i);
 
-    if (newCol) {
+    if (addedNewCol) {
+        addedNewCol = false;
         currentWidth++;
         xDir *= -1;
         xMoving = false;
         y += yDir;
+        addedNewRow = checkAndUpdateRows();
     } else {
         x += xDir;
     }
+
+    addedNewCol = checkAndUpdateCols();
 }
 
 function checkAndUpdateRows() {
