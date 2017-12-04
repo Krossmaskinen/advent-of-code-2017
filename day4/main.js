@@ -26,12 +26,12 @@ function checkPhrase(phrase) {
     let phraseIsValid = true;
 
     for(let i = 0; i < words.length; ++i) {
-        let word = words[i];
+        let word = words[i].split('').sort().join('');
         let isInCheckedList = (checkedWords.some(w => w === word));
         let filteredList;
 
         if (!isInCheckedList) {
-            filteredList = words.filter(w => w === word);
+            filteredList = words.filter(w => w.split('').sort().join('') === word);
             if (filteredList.length > 1) {
                 return false;
             }
