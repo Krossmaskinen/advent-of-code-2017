@@ -7,10 +7,6 @@ let validPhrases = [];
 phrases = input.split('\n');
 phrases = phrases.map(phrase => phrase.split('\r')[0]);
 
-// phrases = ['aa bb cc dd aa', 'aa bb cc dd'];
-
-console.log(phrases[phrases.length - 1]);
-
 phrases.forEach(phrase => {
     if (checkPhrase(phrase)) {
         validPhrases.push(phrase);
