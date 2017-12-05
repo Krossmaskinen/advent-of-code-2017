@@ -1,28 +1,48 @@
 var fs = require('fs');
 var inputFile = './input.txt';
-var input = fs.readFileSync(inputFile, 'utf8');
 
-var instructions = input.split('\n');
-var steps = 0;
-var currentIndex = 0;
-
-instructions = instructions.map(Number);
+resetInstructions();
 
 escapePart1();
+resetInstructions();
+escapePart2();
+
+function resetInstructions() {
+    input = fs.readFileSync(inputFile, 'utf8');
+    instructions = input.split('\n');
+    instructions = instructions.map(Number);
+
+    steps = 0;
+    currentIndex = 0;
+}
 
 function escapePart1() {
     while(currentIndex < instructions.length && currentIndex >= 0) {
         let nextIndex = currentIndex + instructions[currentIndex];
 
         instructions[currentIndex]++;
+        currentIndex = nextIndex;
+
+        steps++;
+    }
+
+    console.log(`The CPU is saved! It took ${steps} steps`);
+}
+
+function escapePart2() {
+    while(currentIndex < instructions.length && currentIndex >= 0) {
+        let nextIndex = currentIndex + instructions[currentIndex];
+
+        if (instructions[currentIndex] > 2) {
+            instructions[currentIndex]--;
+        } else {
+            instructions[currentIndex]++;
+        }
 
         currentIndex = nextIndex;
 
         steps++;
     }
 
-    console.log(`The CPU is saved! It took  ${steps} steps`);
-
-    steps = 0;
-    currentIndex = 0;
+    console.log(`The CPU is saved (again)! It took ${steps} steps`);
 }
