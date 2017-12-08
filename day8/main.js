@@ -3,6 +3,7 @@ var inputFile = './input.txt';
 var input = fs.readFileSync(inputFile, 'utf8');
 let register = {};
 var registerInstructions = formatInput(input);
+var maxValue = -99999;
 
 console.log(register);
 
@@ -46,12 +47,14 @@ function executeInstruction(inst) {
 
     if (passed) {
         register[inst.name] = eval(`${activeRegister}${inst.modifier}${inst.amount}`);
+
+        maxValue = (register[inst.name] > maxValue) ? register[inst.name] : maxValue;
     }
 }
 
 function solvePart1() {
     let values = [];
-    let maxValue;
+    let currentMax;
 
     for (let instruction of registerInstructions) {
         executeInstruction(instruction);
@@ -61,10 +64,11 @@ function solvePart1() {
         values.push(register[key]);
     }
 
-    maxValue = Math.max(...values);
+    currentMax = Math.max(...values);
 
     console.log('values', values);
-    console.log('max', maxValue);
+    console.log('max', currentMax);
+    console.log('highest ever', maxValue);
 }
 
 solvePart1();
