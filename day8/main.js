@@ -5,8 +5,6 @@ let register = {};
 var registerInstructions = formatInput(input);
 var maxValue = -99999;
 
-console.log(register);
-
 function formatInput(data) {
     let instructions = data.split('\n').map(ins => ins.split('\r')[0]);
     let name;
@@ -66,7 +64,6 @@ function solvePart1() {
 
     currentMax = Math.max(...values);
 
-    console.log('values', values);
     console.log('max', currentMax);
     console.log('highest ever', maxValue);
 }
