@@ -85,19 +85,14 @@ function getDenseHash(sparseHash) {
     let segment;
 
     for (let i = 0; i < 16; ++i) {
-        segment = sparseHash.slice(i * 16, (i + 1) * 16);
-        segments.push(segment);
-    }
-
-    for (segment of segments) {
+        segment = sparseHash.splice(0, 16);
         segment = segment.reduce((prev, cur) => {
             return prev ^ cur;
         }, 0)
-
-        tempHash.push(segment);
+        segments.push(segment);
     }
 
-    return tempHash.map(num => {
+    return segments.map(num => {
         num = num.toString(16);
         if (num.length === 1) {
             num = '0' + num;
@@ -130,7 +125,7 @@ function solve1() {
 function solve2() {
     let denseHash;
 
-    input2 = extraLengths;
+    input2 = formatInput2(baseInput);
 
     for (let i = 0; i < 64; ++i) {
         for (let instruction of input2) {
@@ -139,47 +134,10 @@ function solve2() {
     }
 
     denseHash = getDenseHash(sparseHash);
-    console.log(`result: ${denseHash}`);
+    console.log(`hash:       ${denseHash}`);
+    console.log('should be   2f8c3d2100fdd57cec130d928b0fd2dd');
 }
 
-// solve1();
-// reset();
-// solve2();
-test();
-
-function test() {
-    let temp;
-    let input2 = formatInput2('');
-
-    for (let i = 0; i < 64; ++i) {
-        for (let instruction of input2) {
-            step(instruction);
-        }
-    }
-
-    let segments = [];
-    let segment;
-
-    for (let i = 0; i < 16; ++i) {
-        segment = sparseHash.splice(0, 16);
-
-        segment = segment.reduce((prev, cur) => {
-            return prev ^ cur;
-        }, 0);
-
-        segments.push(segment);
-    }
-
-    segments = segments.map(num => {
-        num = num.toString(16);
-        if (num.length === 1) {
-            num = '0' + num;
-        }
-
-        return num;
-    }).join('');
-
-    console.log('temp hash  ', segments);
-    console.log('should be  ', '3efbe78a8d82f29979031a4aa0b16a9d');
-}
-
+solve1();
+reset();
+solve2();
