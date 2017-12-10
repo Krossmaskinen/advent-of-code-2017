@@ -7,7 +7,6 @@ var currentPos = 0;
 let result;
 
 input = formatInput(input);
-console.log(input);
 
 // input = [3, 4, 1, 5];
 // hashList = [0, 1, 2, 3, 4];
@@ -66,18 +65,11 @@ function step(totalLength) {
     if (currentPos >= hashList.length) {
         currentPos = currentPos - hashList.length;
     }
-
-    // console.log('size', totalLength);
-    // console.log('new hash', hashList);
-    // console.log('current pos', currentPos);
-    // console.log('skip size', skipSize);
 }
 
 function getResult() {
     return hashList[0] * hashList[1];
 }
-
-let i = 1;
 
 for (let instruction of input) {
     step(instruction);
