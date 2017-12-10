@@ -76,10 +76,7 @@ function insertResult(selection, length1, length2) {
 
 function updatePosition(length) {
     currentPos += length + skipSize++;
-
-    if (currentPos >= sparseHash.length) {
-        currentPos = currentPos - sparseHash.length;
-    }
+    currentPos = currentPos % sparseHash.length;
 }
 
 function getDenseHash(sparseHash) {
@@ -172,7 +169,6 @@ function test() {
 
         segments.push(segment);
     }
-
 
     segments = segments.map(num => {
         num = num.toString(16);
